@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function WorkflowCard(props) {
-    
 
     return (
         <div className="flex-col text-[#414141] mt-4 w-full">
