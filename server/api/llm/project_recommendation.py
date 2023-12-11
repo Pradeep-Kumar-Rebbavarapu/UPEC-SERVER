@@ -1,30 +1,20 @@
-import json
-import os
-import openai
-import pinecone
-from langchain.vectorstores import Pinecone
-from dotenv import load_dotenv
 from ..utils import *
+from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-
-def initiate_pinecone():
-    pinecone.init(
-        api_key=os.environ.get("PINECONE_API_KEY"),
-        environment=os.environ.get("PINECONE_ENVIRONMENT"),
-    )
-
-    index_name = "projects"
-    index = pinecone.Index(index_name)
-    embed_model = load_embedding_model()
-    text_field = "text"  # field in metadata that contains text content
-    return index, embed_model
-
-
 def project_recomendation(skills):
-    # Define the prompt based on parameters
-    index, embed_model = initiate_pinecone()
+    """
+    Recommends projects based on given skills.
+
+    Args:
+        skills (list): List of skills.
+
+    Returns:
+        list: List of recommended project IDs.
+    """
+    index, embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"), "projects")
     result = []
     v = embed_model.embed_documents(skills)
     result = index.query(
