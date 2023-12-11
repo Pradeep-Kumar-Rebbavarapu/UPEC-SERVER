@@ -1,10 +1,13 @@
 from pathlib import Path
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-6likh75ebi!_pcp@!skzsk-(4n6#+vv@qy*+)6-6pceb3m*59a"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
 
@@ -34,6 +37,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django.contrib.sites",
     "drf_yasg",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -80,6 +84,7 @@ else:
             "ENGINE": "djongo",
             "NAME": "TRUMIO",
             "ENFORCE_SCHEMA": False,
+            # not kept it in env file for easy access to the database.
             "CLIENT": {
                 "host": "mongodb+srv://TRUMIO_DB:COXHP8LtEO6SnuFb@cluster0.7wfslpj.mongodb.net/"
             },
