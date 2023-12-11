@@ -52,6 +52,10 @@ Welcome to the UPEC trumio standalone application. This application is a transfo
 
 ## About the Project
 
+### Design
+
+Explore our design on Figma: [Figma Design]([https://www.figma.com/file/your-figma-file-link](https://www.figma.com/file/KdD8rGWX5qQkKUOjqRGO8y/UPEC?type=design&mode=design&t=9e5YHN0OZl7OPpB9-1))
+
 This project is a standalone application that can be integrated to trumio's platform that will drive greater alumini engagement, upskill students on the latest technologies and ensure that students dilever projects that meet the clients expectation.
 1. The Community Feed section serves as a dynamic catalyst within the engagement platform, strategically designed to enhance alumni engagement and streamline the inflow of client projects to students and universities.
 2. Students will get project recommendations based on their skills and interests.
@@ -125,7 +129,7 @@ Before you begin, ensure you have the following installed:
         ```bash
         source venv/bin/activate
         ```
-# Backend
+#### Backend
 5. Navigate to the backend directory:
 
     ```bash
@@ -149,7 +153,7 @@ Before you begin, ensure you have the following installed:
     python manage.py runserver
     ```
 
-# Frontend
+#### Frontend
 9. Navigate to the frontend directory:
 
     ```bash
@@ -165,7 +169,7 @@ Before you begin, ensure you have the following installed:
     ```bash
     npm run dev
     ```
-# Database
+#### Database
 12. Create a database named "trumio" in MongoDB and import the database dump file from the database directory.
 
     ```bash
