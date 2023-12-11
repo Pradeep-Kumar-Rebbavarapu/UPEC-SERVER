@@ -11,7 +11,6 @@ export const HomeProvider = ({children})=>{
   const [Group,setGroup] = useState(false)
   const [Receiver,setReceiver] = useState(null)
   const [AI,setAI] = useState(false)
-  const [a,seta] = useState(false)
   const ContextData = {
     auth,
     setauth,
