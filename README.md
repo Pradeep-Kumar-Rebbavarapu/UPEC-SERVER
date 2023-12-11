@@ -192,9 +192,129 @@ Before you begin, ensure you have the following installed:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Backend Folder Structure
+```
+- server/
+    ├── api/
+    ├── server/
+    ├── .gitignore
+    ├── data.json
+    ├── db.json
+    ├── db.sqlite3
+    ├── docker-compose.yaml
+    ├── dockerfile
+    ├── manage.py
+    ├── output.docx
+    └── requirements.txt
+```
 
 
-
+For the api folder:
+```
+└── api/ <br>
+    ├── fake_data
+    ├── llm/
+    │   ├── data_embeddings.py
+    │   ├── data_embeddings_community.py
+    │   ├── learning_resource.py
+    │   ├── management.py
+    │   ├── message_handler.py
+    │   ├── prd_generator.py
+    │   ├── project_recommendation.py
+    │   ├── student_skills.py
+    │   └── workflow.py
+    ├── management/commands
+    ├── migrations
+    ├── models/
+    │   ├── chat.py
+    │   ├── community.py
+    │   ├── projects.py
+    │   └── user.py
+    ├── utils/
+    │   ├── initiate_pinecone.py
+    │   └── load_embedding_model.py
+    ├── views/
+    │   ├── get_data_views.py
+    │   ├── llm_views.py
+    │   └── messaging_views.py
+    ├── admin.py
+    ├── apps.py
+    ├── consumers.py
+    ├── helpers.py
+    ├── routing.py
+    ├── serializers.py
+    ├── signals.py
+    ├── tests.py
+    └── urls.py
+```
+## Frontend Folder Stucture
+```
+└── client/
+    ├── public
+    ├── src/
+    │   ├── app/
+    │   │   ├── accounts/
+    │   │   │   ├── error.jsx
+    │   │   │   ├── loading.jsx
+    │   │   │   └── page.jsx
+    │   │   ├── communicate/
+    │   │   │   ├── error.jsx
+    │   │   │   ├── loading.jsx
+    │   │   │   └── page.jsx
+    │   │   ├── profile/
+    │   │   │   ├── error.jsx
+    │   │   │   ├── loading.jsx
+    │   │   │   └── page.jsx
+    │   │   ├── projects/
+    │   │   │   ├── [id]
+    │   │   │   ├── error.jsx
+    │   │   │   ├── loading.jsx
+    │   │   │   └── page.jsx
+    │   │   ├── data.json
+    │   │   ├── error.jsx
+    │   │   ├── favicon.ico
+    │   │   ├── globals.css
+    │   │   ├── layout.jsx
+    │   │   ├── loading.jsx
+    │   │   └── page.jsx
+    │   ├── components/
+    │   │   ├── CommunicatePageComponents/
+    │   │   │   ├── MainChatCard.js
+    │   │   │   ├── RecentChats.js
+    │   │   │   ├── RecieverChatCard.js
+    │   │   │   └── SenderChatCard.js
+    │   │   ├── HomePageComponents/
+    │   │   │   ├── PostCard.js
+    │   │   │   ├── ProfileCard.js
+    │   │   │   ├── RecentEvents.js
+    │   │   │   └── recentChatCard.js
+    │   │   ├── NavbarComponent/
+    │   │   │   └── NavbarComponent.js
+    │   │   ├── ProfilePageComponents/
+    │   │   │   ├── ProfileCard.js
+    │   │   │   ├── ProfileDescriptionCard.js
+    │   │   │   ├── SkillsCard.js
+    │   │   │   └── SocialCard.js
+    │   │   ├── ProjectPageComponents/
+    │   │   │   ├── EachProjectCard.js
+    │   │   │   ├── PRDCard.js
+    │   │   │   ├── ProjectCard.js
+    │   │   │   ├── WorkflowCard.js
+    │   │   │   └── sampleData.json
+    │   │   ├── ClipLoader.js
+    │   │   └── Loader.js
+    │   └── context/
+    │       └── HomeContext.js
+    ├── .gitignore
+    ├── README.md
+    ├── jsconfig.json
+    ├── next-sitemap.config.js
+    ├── next.config.js
+    ├── package-lock.json
+    ├── package.json
+    ├── postcss.config.js
+    └── tailwind.config.js
+```
 <!-- ROADMAP -->
 ## Roadmap
 
