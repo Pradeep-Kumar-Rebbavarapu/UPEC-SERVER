@@ -1,9 +1,14 @@
+// Setting the environment to use client-side rendering
 "use client";
+
+// Importing Link and React from Next.js, and useState from React
 import Link from 'next/link';
 import React from 'react'
 import { useState } from 'react'
 
+// Functional component for rendering a post card
 export default function PostCard(props) {
+  // State variables to manage post details
   const [name, setName] = useState(props.post.user);
   const [image, setImage] = useState(props.post.profile);
   const [tagline, setTagline] = useState(props.post.designation);
@@ -12,9 +17,11 @@ export default function PostCard(props) {
   const [tags, setTags] = useState(props.post.hashtags);
   const [picture, setPicture] = useState(props.post.picture);
   const [link, setLink] = useState(props.post.link);
+
+  // JSX structure for rendering the post card
   return (
     <a className="flex justify-center" href={link}>
-      <article className="my-5 break-inside rounded-md bg-white flex flex-col bg-clip-border shadow-xl text-[#5E5873] h-max w-full sm:w-[90%] mx-auto">
+      <article className="my-5 break-inside flex flex-col bg-clip-border h-max w-full sm:w-[90%] mx-auto card !p-0">
         <div className="flex items-center p-3 justify-between bg-white rounded-t-md">
           <div className="flex">
             <Link className="inline-block" href="#">
@@ -22,9 +29,11 @@ export default function PostCard(props) {
             </Link>
             <div className="flex flex-col mx-2 justify-center">
               <div className="flex">
-                <a className="inline-block lg:text-lg sm:text-sm text-xs font-bold" href="#">{name}</a>
+                {/* Link to the user's profile */}
+                <a className="inline-block titleTextDiv" href="#">{name}</a>
               </div>
-              <div className="text-slate-500">
+              <div className="bodyTextDiv">
+                {/* Tagline or designation of the user */}
                 {tagline}
               </div>
             </div>
@@ -33,22 +42,25 @@ export default function PostCard(props) {
         <div className="">
           <div className="flex justify-center">
             <Link className="flex" href="#">
+              {/* Image associated with the post */}
               <img className="max-w-full rounded-l-lg"
                 src={picture} />
             </Link>
           </div>
         </div>
-        <h2 className=" text-md xs:text-lg sm:text-2xl xl:text-2xl font-bold m-5">
+        <h2 className="titleTextDiv m-5">
+          {/* Title or heading of the post */}
           {postHeading}
         </h2>
         <div className="mx-5">
-          <p>
-            {/* slice body to first 100 words */}
+          <p className='bodyTextDiv'>
+            {/* Displaying a truncated version of the post description */}
             {postDescription.length > 500 ? postDescription.slice(0, 500) + "..." : postDescription}
           </p>
         </div>
         <div className="p-2 sm:p-4 flex flex-wrap items-center">
-          {tags.map((tag,index) => (
+          {/* Mapping over tags to display them */}
+          {tags.map((tag, index) => (
             <div key={index} className="bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-600 mr-2 mb-2">
               {tag}
             </div>

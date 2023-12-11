@@ -1,24 +1,33 @@
 import json
-import os
 import openai
 from docx import Document
-
 from ..models import ProjectRequirementDocument
 from dotenv import load_dotenv
-from bs4 import BeautifulSoup
-
+import os
 
 load_dotenv()
 
 
-def generate_prd(project_description, project_timeline, project_techstacks):
+def generate_prd_content(project_description, project_timeline, project_techstacks, project_title):
+    """
+    Generate a comprehensive Product Requirements Document (PRD) for a new project.
+
+    Args:
+        project_description (str): The description of the project.
+        project_timeline (str): The timeline of the project.
+        project_techstacks (str): The tech stacks used in the project.
+        project_title (str): The title of the project.
+
+    Returns:
+        str: The generated PRD content.
+    """
     # Define the prompt based on parameters
     prompt = f"""
         You Are a Project Manager. Generate a comprehensive Product Requirements Document (PRD) for a new project. Fill In Every Minute Detail Present.
         Provide the project details in a JSON data structure, ensuring that each key corresponds to the following elements:
-        The project involves {project_description}. Below are the key details:
+        The project involves {project_title}. Below are the key details:
 
-
+        
         ### Project Description:
         {project_description}
 
@@ -98,11 +107,12 @@ def generate_prd(project_description, project_timeline, project_techstacks):
         JSON format example:
         """
     prompt += """{
-            "name": "sonoo",
-            "salary": 56000,
-            "married": true,
+            "Project Overview": "sonoo",
+            "Anything UNCLEAR": "xyz",
+            "Security Measures": "abc",
         }"""
 
+    # Generate the PRD using the curated prompt and OpenAI infrastructure (GPT-3.5-turbo-instruct)
     openai.api_key = os.environ.get("OPENAI_API_KEY")
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
@@ -110,11 +120,18 @@ def generate_prd(project_description, project_timeline, project_techstacks):
         max_tokens=2000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
-
+    # returning the response
     return response.choices[0].text.strip()
 
 
 def create_word_document(content, filename="output.docx"):
+    """
+    Create a Word document with the given content.
+
+    Args:
+        content (str): The content of the document.
+        filename (str, optional): The filename of the document. Defaults to "output.docx".
+    """
     # Create a Word document
     doc = Document()
     doc.add_heading("Generated PRD", level=1)
@@ -125,23 +142,38 @@ def create_word_document(content, filename="output.docx"):
     print(f"Document saved as '{filename}'")
 
 
-# When generate PRD button is clicked
-def generate_prd_button_clicked(project):
+def generate_prd(project):
+    """
+    Generate a Product Requirements Document (PRD) for a project.
+
+    Args:
+        project: The project object.
+
+    Returns:
+        int: The ID of the generated PRD in the database.
+    """
     # Get all the values from the database
     project_techstacks = project.related_techstacks
     project_description = project.description
     project_timeline = f"{project.end_date} to {project.start_date}"
+    project_title = project.title
 
     # Generate PRD
-    prd = generate_prd(project_description, project_timeline, project_techstacks)
+    prd = generate_prd_content(project_description, project_timeline, project_techstacks, project_title)
 
     # Create a Word document
     create_word_document(prd)
     print("prd", prd)
     json_response = json.loads(prd, strict=False)
     print("json response", json_response)
+
+    """
+    getting the response from the json and storing it in the database.
+    Used try except block to handle the KeyError as the response from GPT is unpredictable and we needed to handle both cases possible.
+    """
+
     try:
-        project_details = ProjectRequirementDocument(
+        product_requirement_document = ProjectRequirementDocument(
             project_overview=json_response["Project Overview"],
             original_requirements=json_response["Original Requirements"],
             project_goals=json_response["Project Goals"],
@@ -164,7 +196,7 @@ def generate_prd_button_clicked(project):
             anything_unclear=json_response["Anything UNCLEAR"],
         )
     except KeyError:
-        project_details = ProjectRequirementDocument(
+        product_requirement_document = ProjectRequirementDocument(
             project_overview=json_response["project_overview"],
             original_requirements=json_response["original_requirements"],
             project_goals=json_response["project_goals"],
@@ -186,7 +218,10 @@ def generate_prd_button_clicked(project):
             communication_plan=json_response["communication_plan"],
             anything_unclear=json_response["anything_unclear"],
         )
-    project_details.save()
-    project.prd = project_details
+    # saving the product requirement document in the database
+    product_requirement_document.save()
+    # updating the project with the product requirement document
+    project.prd = product_requirement_document
+    # saving the project, as soon as the project is saved the signal is called to save the prd and the project in the vector database
     project.save()
-    return project_details.id
+    return product_requirement_document.id
