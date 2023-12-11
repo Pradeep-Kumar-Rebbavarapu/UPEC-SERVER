@@ -42,6 +42,8 @@ Welcome to the UPEC trumio standalone application. This application is a transfo
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#backend-folder-structure">Backend Folder Structure</a></li>
+    <li><a href="#frontend-folder-stucture">Frontend Folder Structure</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
