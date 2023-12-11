@@ -23,7 +23,7 @@ export default function page() {
       return fetchUserDetails(auth.user.id);
     },
   });
-  
+
   // Loading state check, display loading message if data is still loading
   if (userDetails.isLoading) {
     return <div>Loading...</div>;
