@@ -54,7 +54,7 @@ Welcome to the UPEC trumio standalone application. This application is a transfo
 
 ### Design
 
-Explore our design on Figma: [Figma Design]([https://www.figma.com/file/your-figma-file-link](https://www.figma.com/file/KdD8rGWX5qQkKUOjqRGO8y/UPEC?type=design&mode=design&t=9e5YHN0OZl7OPpB9-1))
+Explore our design on Figma: [Figma Design](https://www.figma.com/file/KdD8rGWX5qQkKUOjqRGO8y/UPEC?type=design&mode=design&t=9e5YHN0OZl7OPpB9-1)
 
 This project is a standalone application that can be integrated to trumio's platform that will drive greater alumini engagement, upskill students on the latest technologies and ensure that students dilever projects that meet the clients expectation.
 1. The Community Feed section serves as a dynamic catalyst within the engagement platform, strategically designed to enhance alumni engagement and streamline the inflow of client projects to students and universities.
