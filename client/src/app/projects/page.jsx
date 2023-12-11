@@ -13,16 +13,16 @@ export default function Projects() {
 
   // Use React Query to fetch all projects
   const AllProjects = useQuery({
-    queryKey:['AllProjects'],
-    queryFn:()=>{
+    queryKey: ['AllProjects'],
+    queryFn: () => {
       return fetchAllProjects()
     }
   })
 
   // Use React Query to fetch current projects for the authenticated user
   const CurrentProjects = useQuery({
-    queryKey:['CurrentProjects'],
-    queryFn:()=>{
+    queryKey: ['CurrentProjects'],
+    queryFn: () => {
       return fetchCurrentProjects(auth.user.id)
     }
   })
@@ -30,7 +30,7 @@ export default function Projects() {
   // Render the component
   return (
     <div className='background'>
-      
+
       {/* Display section for current projects */}
       <div className='card m-2 md:m-5 !max-lg:p-2'>
         <h1 className="headingTextDiv">Current Projects</h1>
@@ -47,7 +47,7 @@ export default function Projects() {
               {CurrentProjects?.data?.map((ele, index) => {
                 return (
                   <div key={index}>
-                  <ProjectCard ele={ele} />
+                    <ProjectCard ele={ele} />
                   </div>
                 )
               })}
@@ -63,7 +63,7 @@ export default function Projects() {
           {AllProjects?.data?.map((ele, index) => {
             return (
               <div key={index}>
-              <ProjectCard ele={ele} />
+                <ProjectCard ele={ele} />
               </div>
             )
           })}
@@ -76,18 +76,18 @@ export default function Projects() {
 
 // Function to fetch all projects
 const fetchAllProjects = async (id) => {
-  return axios.get(`http://103.159.214.229/api/v1/__get__all__projects__`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__all__projects__`).then((response) => {
     return response.data
-  }).catch((err)=>{
+  }).catch((err) => {
     alert(err)
   })
 }
 
 // Function to fetch current projects for a specific user
 const fetchCurrentProjects = async (id) => {
-  return axios.get(`http://103.159.214.229/api/v1/__get__users__ongoing__projects__/${id}`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__users__ongoing__projects__/${id}`).then((response) => {
     return response.data
-  }).catch((err)=>{
+  }).catch((err) => {
     alert(err)
   })
 }

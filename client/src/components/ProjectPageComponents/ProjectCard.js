@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import WorkflowCard from './WorkflowCard'
 import sampleData from './sampleData.json'
 import Link from 'next/link'
-export default function ProjectCard({ele}) {
+export default function ProjectCard({ ele }) {
 
   const [open, setOpen] = useState(false);
   const [workflowData, setWorkflowData] = useState({});
@@ -38,7 +38,7 @@ export default function ProjectCard({ele}) {
               <div className="mr-2">United States</div>
               <div className="mr-2">Posted On {ele.created_at}</div>
             </div>
-            <p className="hidden md:block pr-4 my-4 bodyTextDiv text-left">{ele.description.slice(0,200)}...</p>
+            <p className="hidden md:block pr-4 my-4 bodyTextDiv text-left">{ele.description.slice(0, 200)}...</p>
             <div className="py-3 sm:py-2 flex">
               <div className="flex items-center gap-2">
                 <div className="flex-shrink-0">
@@ -64,24 +64,24 @@ export default function ProjectCard({ele}) {
               <div className="titleTextDiv">
                 Skills
                 <div className="flex gap-x-2 flex-wrap">
-                  {ele?.related_techstacks.map((item,index)=>{
-                    return(
+                  {ele?.related_techstacks.map((item, index) => {
+                    return (
                       <div key={index}>
                         <div className="bodyTextDiv !bg-[#E3F2FD] !text-[#3EA4F4] py-1 my-1 px-2 rounded-lg">{item}</div>
-                        
+
                       </div>
                     )
                   })}
-                  
+
                 </div>
-              </div>  
-                <Link href={`/projects/${ele.id}`} className="cursor-pointer hidden sm:block text-sm md:text-md bg-[#28C76F] hover:bg-[#3cad6f] bg-opacity-80 text-white px-3 py-2 rounded-md font-semibold h-min">Know More</Link>
-              
+              </div>
+              <Link href={`/projects/${ele.id}`} className="cursor-pointer hidden sm:block text-sm md:text-md bg-[#28C76F] hover:bg-[#3cad6f] bg-opacity-80 text-white px-3 py-2 rounded-md font-semibold h-min">Know More</Link>
+
             </div>
             <div className='flex sm:hidden pt-3 justify-end'>
-                <Link href={`/projects/${ele.id}`} className="cursor-pointer sm:hidden text-sm md:text-md bg-[#28C76F] hover:bg-[#3cad6f] bg-opacity-80 text-white px-3 py-2 rounded-md font-semibold h-min">Know More</Link>
+              <Link href={`/projects/${ele.id}`} className="cursor-pointer sm:hidden text-sm md:text-md bg-[#28C76F] hover:bg-[#3cad6f] bg-opacity-80 text-white px-3 py-2 rounded-md font-semibold h-min">Know More</Link>
             </div>
-            {workflowData && open && <WorkflowCard workflowData={workflowData}/>}
+            {workflowData && open && <WorkflowCard workflowData={workflowData} />}
           </div>
         </div>
       </div>

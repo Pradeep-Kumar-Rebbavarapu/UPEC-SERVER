@@ -6,7 +6,7 @@ import React from 'react'
 import { useState } from 'react';
 
 // Functional component for rendering a chat card for the sender
-export default function SenderChatCard({ele}) {
+export default function SenderChatCard({ ele }) {
   // JSX structure for rendering the sender's chat card
   return (
     <div className='flex items-center p-5 w-full justify-end'>
