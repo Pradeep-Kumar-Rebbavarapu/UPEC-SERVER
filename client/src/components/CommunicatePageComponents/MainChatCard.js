@@ -80,58 +80,66 @@ export default function MainChatCard({ id }) {
   // JSX structure for rendering the main chat card
   return (
     <div className='border border-gray-200 bg-white w-3/4 h-screen relative'>
-      <div className="w-full flex items-start justify-start p-2 border border-gray-200 absolute top-0 bg-white z-1">
-        <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 rounded-full" />
-        <div className="flex flex-col px-4 justify-center items-start text-gray-600">
-          <h2 className="text-xl font-semibold">{SelectedName}</h2>
-          <h3 className="text-base font-light">Last active at: 3rd Nov 2023, 7:08PM</h3>
-        </div>
-      </div>
-      <div className="h-screen overflow-scroll py-[100px]">
-        {EachUsersMessages?.map((ele) => {
-          return (
-            <div>
-              {ele.sender == auth.user.username ? (
-                <SenderChatCard ele={ele} />
-              ) : (
-                <RecieverChatCard ele={ele} />
-              )}
+      {Receiver != null ? (
+        <>
+          <div className="w-full flex items-start justify-start p-2 border border-gray-200 absolute top-0 bg-white z-1">
+            <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 rounded-full" />
+            <div className="flex flex-col px-4 justify-center items-start text-gray-600">
+              <h2 className="text-xl font-semibold">{SelectedName}</h2>
+              <h3 className="text-base font-light">Last active at: 3rd Nov 2023, 7:08PM</h3>
             </div>
-          )
-        })}
-      </div>
-      <div className="flex justify-center items-center border border-gray-200 p-3 absolute bottom-0 bg-white w-full">
-        <input onChange={(e) => {
-          setmessage(e.target.value)
-        }} placeholder="Enter Your Message" className="mx-4 border border-gray-200 h-10 w-full rounded-lg px-2 text-black" />
-        <button className='text-black flex' onClick={() => {
-          // Sending a message to the user through WebSocket
-          socket.current.send(JSON.stringify({
-            "type": "send_message_to_user",
-            "data": {
-              "sender": auth.user.id,
-              "receiver": Receiver,
-              "group": Group,
-              "ai": AI,
-              "message": message
-            }
-          }))
-        }}><IoSend className='text-black mx-4 w-8 h-8' /> </button>
-        {Group && <button id="ai-grp-btn" className='text-black' onClick={(e) => {
-          // Toggling the AI button's color and setting the AI state
-          if (document.getElementById('ai-grp-btn').classList.contains('text-blue-600')) {
-            setAI(false)
-            document.getElementById('ai-grp-btn').className = "text-black"
-          }
-          else {
-            setAI(true)
-            document.getElementById('ai-grp-btn').className = "text-blue-600"
-          }
+          </div>
+          <div className="h-screen overflow-scroll py-[100px]">
+            {EachUsersMessages?.map((ele) => {
+              return (
+                <div>
+                  {ele.sender == auth.user.username ? (
+                    <SenderChatCard ele={ele} />
+                  ) : (
+                    <RecieverChatCard ele={ele} />
+                  )}
+                </div>
+              )
+            })}
+          </div>
+          <div className="flex justify-center items-center border border-gray-200 p-3 absolute bottom-0 bg-white w-full">
+            <input onChange={(e) => {
+              setmessage(e.target.value)
+            }} placeholder="Enter Your Message" className="mx-4 border border-gray-200 h-10 w-full rounded-lg px-2 text-black" />
+            <button className='text-black flex' onClick={() => {
+              // Sending a message to the user through WebSocket
+              socket.current.send(JSON.stringify({
+                "type": "send_message_to_user",
+                "data": {
+                  "sender": auth.user.id,
+                  "receiver": Receiver,
+                  "group": Group,
+                  "ai": AI,
+                  "message": message
+                }
+              }))
+            }}><IoSend className='text-black mx-4 w-8 h-8' /> </button>
+            {Group && <button id="ai-grp-btn" className='text-black' onClick={(e) => {
+              // Toggling the AI button's color and setting the AI state
+              if (document.getElementById('ai-grp-btn').classList.contains('text-blue-600')) {
+                setAI(false)
+                document.getElementById('ai-grp-btn').className = "text-black"
+              }
+              else {
+                setAI(true)
+                document.getElementById('ai-grp-btn').className = "text-blue-600"
+              }
 
-        }}><GoCopilot className=' transition-all fade-in-out mx-4 w-8 h-8' /></button>}
+            }}><GoCopilot className=' transition-all fade-in-out mx-4 w-8 h-8' /></button>}
 
 
-      </div>
+          </div>
+        </>
+      ) : (
+        <div className='w-full h-full text-center items-center flex justify-center'>You Havent Selected Any One</div>
+      )}
+
+
     </div>
   )
 }

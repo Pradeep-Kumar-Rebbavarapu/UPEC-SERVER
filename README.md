@@ -21,7 +21,7 @@
 
 Welcome to the UPEC trumio standalone application. This application is a transformative community engagement platform that serves as a centralized hub for students to connect with industry professionals and alumni to deepen their ties with their alma mater. Our platform leverages AI to personalize recommendations, offer real-time support, and facilitate seamless collaboration, fostering a thriving ecosystem where individuals can flourish all while following Trumio’s objectives and Business goals.
 
-<div style="display: inline-block; background-color: black; padding: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+<div style="display: inline-block; background-color: black; padding: 2px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
     <!-- Inline styles for the image -->
     <img src="./images/homepage.png" alt="Homepage" style="width: 100%; height: auto; display: block;">
   </div>
@@ -165,12 +165,28 @@ Before you begin, ensure you have the following installed:
     ```bash
     npm run dev
     ```
+12. Login With a Cookie:
+
+    ```bash
+    open chromes developer tools and navigate to application -> add 2 Cookies 
+    Cookie 1 : {id:<your_preferred_user_id>}
+    Cookie 2 : {username:<users_name>}
+    ```
+    <div style="display: inline-block; background-color: black; padding: 2px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+    <!-- Inline styles for the image -->
+    <img src="./images/cookie.png" alt="Homepage" style="width: 100%; height: auto; display: block;">
+</div>
 # Database
 12. Create a database named "trumio" in MongoDB and import the database dump file from the database directory.
 
     ```bash
     python manage.py loaddata data.json
     ```
+12. Below is our ER diagram which you can have a look onto for a top level overview of our database
+<div style="display: inline-block; background-color: black; padding: 2px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+    <!-- Inline styles for the image -->
+    <img src="./images/ERD.jpg" alt="Homepage" style="width: 100%; height: auto; display: block;">
+</div>
 
 
 
