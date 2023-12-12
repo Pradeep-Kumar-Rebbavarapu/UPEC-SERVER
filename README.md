@@ -183,14 +183,14 @@ Before you begin, ensure you have the following installed:
     <div style="display: inline-block; background-color: black; padding: 2px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
     <!-- Inline styles for the image -->
     <img src="./images/cookie.png" alt="Homepage" style="width: 100%; height: auto; display: block;">
-</div>
+	</div>
 # Database
-12. Create a database named "trumio" in MongoDB and import the database dump file from the database directory.
+13. Create a database named "trumio" in MongoDB and import the database dump file from the database directory.
 
     ```bash
     python manage.py loaddata data.json
     ```
-12. Below is our ER diagram which you can have a look onto for a top level overview of our database
+14. Below is our ER diagram which you can have a look onto for a top level overview of our database
 <div style="display: inline-block; background-color: black; padding: 2px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
     <!-- Inline styles for the image -->
     <img src="./images/ERD.jpg" alt="Homepage" style="width: 100%; height: auto; display: block;">
