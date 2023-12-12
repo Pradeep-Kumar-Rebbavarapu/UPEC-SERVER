@@ -12,8 +12,14 @@ import { IoIosClose } from "react-icons/io";
 // Functional component for rendering the main chat card
 export default function MainChatCard({ id }) {
   // Destructuring values from the HomeContext
-  const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Receiver, Group, AI, setAI, menu, setMenu } = useContext(HomeContext)
-
+  const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Receiver, Group, AI, setAI, menu, setMenu ,setReceiver} = useContext(HomeContext)
+  useEffect(() => {
+    if(Receiver){
+      //scroll the chat area to the bottom
+    const msgBody = document.getElementById("msg-body");
+    msgBody.scrollTop = msgBody.scrollHeight;
+    }
+  }, [EachUsersMessages]);
   // Initializing WebSocket using useRef hook
   let socket = useRef(null);
 
@@ -73,17 +79,13 @@ export default function MainChatCard({ id }) {
     // WebSocket event handler for the "error" event
     socket.current.onerror = (e) => {
     };
-
+    
   }, [socket.current, auth]);
 
   const toggleMenu = () => {
     setMenu(!menu);
   };
-  useEffect(() => {
-    //scroll the chat area to the bottom
-    const msgBody = document.getElementById("msg-body");
-    msgBody.scrollTop = msgBody.scrollHeight;
-  }, [EachUsersMessages]);
+  
   // JSX structure for rendering the main chat card
   return (
     <div  className={`border border-gray-200 bg-white w-full md:w-3/4 h-screen relative md:block ${menu ? "block" : "hidden"}`}>
