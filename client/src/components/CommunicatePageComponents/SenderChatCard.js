@@ -11,7 +11,7 @@ export default function SenderChatCard({ ele }) {
   return (
     <div className='flex items-center p-5 w-full justify-end'>
       {/* Displaying the sender's message with styling */}
-      <div className="card bodyCard !p-3 mx-5">{ele.message}</div>
+      <div className="card bodyCard mx-5"><div className='font-bold'>{ele.sender}</div>{ele.message}</div>
       {/* Displaying the sender's profile image */}
       <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 rounded-full" />
     </div>

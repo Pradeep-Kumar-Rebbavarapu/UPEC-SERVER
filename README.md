@@ -177,6 +177,8 @@ Before you begin, ensure you have the following installed:
     open chromes developer tools and navigate to application -> add 2 Cookies 
     Cookie 1 : {id:<your_preferred_user_id>}
     Cookie 2 : {username:<users_name>}
+    id = 155 , username = barbara16 -> Talent Login
+    id = 85 , username = zjones -> Client Login
     ```
     <div style="display: inline-block; background-color: black; padding: 2px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
     <!-- Inline styles for the image -->

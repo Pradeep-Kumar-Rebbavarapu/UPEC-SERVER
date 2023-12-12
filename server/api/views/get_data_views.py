@@ -248,12 +248,27 @@ class __get__users__ongoing__projects__(APIView):
             projects = []
             for i in serializer.data:
                 projects.append(ProjectSerializer(Project.objects.get(id=i['project'])).data)
+            for i in projects:
+                i["created_by"] = ClientSerializer(
+                    Client.objects.get(id=i["created_by"])
+                ).data
+                i["created_by"]["user"] = UserSerializer(
+                    User.objects.get(id=i["created_by"]["user"])
+                ).data
             return JsonResponse(projects, safe=False)
         elif is_client:
             client = Client.objects.get(user=user)
             project = Project.objects.filter(created_by=client)
             serializer = ProjectSerializer(project, many=True)
+            for i in serializer.data:
+                i["created_by"] = ClientSerializer(
+                    Client.objects.get(id=i["created_by"])
+                ).data
+                i["created_by"]["user"] = UserSerializer(
+                    User.objects.get(id=i["created_by"]["user"])
+                ).data
             return Response(serializer.data)
+        
         else:
             return Response("You Are Not a Talent, You Cannot Access it")
         

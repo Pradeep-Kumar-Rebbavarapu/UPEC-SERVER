@@ -21,7 +21,7 @@ import {
 // Functional component for rendering recent chats
 export default function RecentChats() {
   // Destructuring values from HomeContext
-  const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Group, setGroup, Receiver, setReceiver, setAI } = useContext(HomeContext)
+  const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Group, setGroup, Receiver, setReceiver, setAI, menu, setMenu } = useContext(HomeContext)
 
   // Queries for fetching direct, project group, and group chat users
   const directChat = useQuery({
@@ -48,22 +48,27 @@ export default function RecentChats() {
   // Custom mutation hook for fetching personal chats
   const test1 = useGetPersonalChats()
 
+  const toggleMenu = () => {
+    setMenu(!menu);
+  };
+
   // JSX structure for rendering recent chats component
   return (
-    <div className='bg-white p-2 border border-gray-200 w-[300px] xl:w-1/4 xl:min-w-[350px] hidden md:block'>
+    <div className={`bg-white md:p-2 border border-gray-200 w-full md:w-[300px] xl:w-1/4 xl:min-w-[350px] md:block ${menu ? "hidden" : "block"}`}>
       <div className="w-full flex border border-gray-200 gap-4 p-2">
-        <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-12 h-12 xl:w-14 xl:h-14 rounded-full mx-auto" />
-        <div className="border border-gray-200 flex rounded-full px-4 items-center w-full">
+        <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 md:w-12 md:h-12 xl:w-14 xl:h-14 rounded-full mx-auto" />
+        <div className="border border-gray-200 flex rounded-full px-4 items-center !w-full min-w-[65%]">
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
             <path d="M 21 3 C 11.6 3 4 10.6 4 20 C 4 29.4 11.6 37 21 37 C 24.354553 37 27.47104 36.01984 30.103516 34.347656 L 42.378906 46.621094 L 46.621094 42.378906 L 34.523438 30.279297 C 36.695733 27.423994 38 23.870646 38 20 C 38 10.6 30.4 3 21 3 z M 21 7 C 28.2 7 34 12.8 34 20 C 34 27.2 28.2 33 21 33 C 13.8 33 8 27.2 8 20 C 8 12.8 13.8 7 21 7 z"></path>
           </svg>
           <div className='text-base lg:text-base p-2'>Search</div>
         </div>
+        
       </div>
       <div className="border border-gray-200">
 
         {/* Direct Chat Section */}
-        <div className="w-full max-w-md p-4 bg-white">
+        <div className="w-full max-w-full p-4 bg-white">
           <div className="flex items-center justify-between mb-4">
             <h5 className="headingTextDiv">Direct Chat</h5>
             <Link href="#" className="text-sm font-medium text-[#0075FF] hover:underline">
@@ -76,12 +81,13 @@ export default function RecentChats() {
                 <div>
                   {item.id != auth.user.id && item.id != 4 && (
                     <li className="card bodyCard hoverCard parent-div"
-                      onClick={() => {
+                        onClick={() => {
                         setAI(false)
                         setGroup(false)
                         setReceiver(item.id)
                         setSelectedName(item.username)
                         test1.mutate({ sender: auth.user.id, receiver: item.id, group: false, ai: false })
+                        
                       }}>
                       <div className="flex items-center">
                         <div className="">
@@ -102,7 +108,7 @@ export default function RecentChats() {
         </div>
 
         {/* Project Chat Section */}
-        <div className="w-full max-w-md p-4 bg-white text-[#5E5873]">
+        <div className="w-full max-w-full p-4 bg-white text-[#5E5873]">
           <div className="flex items-center justify-between mb-4">
             <h5 className="headingTextDiv">Project Chat</h5>
             <Link href="#" className="text-sm font-medium text-[#0075FF] hover:underline">
@@ -117,6 +123,7 @@ export default function RecentChats() {
                   setSelectedName(item.grp_name)
                   setReceiver(item.grp_id)
                   test1.mutate({ sender: auth.user.id, receiver: item.grp_id, group: true })
+                 
                 }} className="card bodyCard hoverCard parent-div">
                   <div className="flex items-center">
                     <div className=" ">
@@ -134,7 +141,7 @@ export default function RecentChats() {
         </div>
 
         {/* Group Chat Section */}
-        <div className="w-full max-w-md p-4 bg-white text-[#5E5873]">
+        <div className="w-full max-w-full p-4 bg-white text-[#5E5873]">
           <div className="flex items-center justify-between mb-4">
             <h5 className="headingTextDiv">Group Chat</h5>
             <Link href="#" className="text-sm font-medium text-[#0075FF] hover:underline">
@@ -150,6 +157,7 @@ export default function RecentChats() {
                   setSelectedName(item.grp_name)
                   setReceiver(item.grp_id)
                   test1.mutate({ sender: auth.user.id, receiver: item.grp_id, group: true })
+                  
                 }} className="card bodyCard hoverCard parent-div">
                   <div className="flex items-center">
                     <div className="">
@@ -167,7 +175,7 @@ export default function RecentChats() {
         </div>
 
         {/* Copilot Section */}
-        <div className="w-full max-w-md p-4 bg-white text-[#5E5873]">
+        <div className="w-full max-w-full p-4 bg-white text-[#5E5873]">
           <div className="flex items-center justify-between mb-4">
             <h5 className="headingTextDiv">Copilot</h5>
             <Link href="#" className="text-sm font-medium text-[#0075FF] hover:underline">
@@ -182,6 +190,7 @@ export default function RecentChats() {
                 setSelectedName('Trumio Copilot')
                 setReceiver(4)
                 test1.mutate({ sender: auth.user.id, receiver: 4, group: false, ai: true })
+                
               }} className="card bodyCard hoverCard parent-div">
                 <div className="flex items-center">
                   <div className="">
@@ -246,12 +255,13 @@ const fetchPersonalChats = async (data) => {
 
 const useGetPersonalChats = () => {
   const queryClient = useQueryClient();
-  const { EachUsersMessages, setEachUsersMessages } = useContext(HomeContext);
+  const { EachUsersMessages, setEachUsersMessages,setMenu,menu } = useContext(HomeContext);
   return useMutation({
     mutationFn: fetchPersonalChats,
     onSuccess: (data) => {
       setEachUsersMessages(data);
       queryClient.invalidateQueries(["UsersMessages"]);
+      setMenu(!menu)
     },
     onError: (context) => {
       queryClient.setQueryData(["UsersMessages"], context.previousData);

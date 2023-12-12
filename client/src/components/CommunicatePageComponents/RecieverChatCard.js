@@ -14,7 +14,7 @@ export default function RecieverChatCard({ ele }) {
       <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 rounded-full" />
 
       {/* Displaying the receiver's message with styling */}
-      <div className="card bodyCard mx-5">{ele.message}</div>
+      <div className="card bodyCard mx-5"><div className='font-bold'>{ele.sender}</div>{ele.message}</div>
     </div>
   )
 }

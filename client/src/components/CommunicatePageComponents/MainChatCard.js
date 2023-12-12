@@ -8,11 +8,11 @@ import { IoSend } from "react-icons/io5";
 import RecieverChatCard from './RecieverChatCard';
 import HomeContext from '@/context/HomeContext';
 import { GoCopilot } from "react-icons/go";
-
+import { IoIosClose } from "react-icons/io";
 // Functional component for rendering the main chat card
 export default function MainChatCard({ id }) {
   // Destructuring values from the HomeContext
-  const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Receiver, Group, AI, setAI } = useContext(HomeContext)
+  const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Receiver, Group, AI, setAI, menu, setMenu } = useContext(HomeContext)
 
   // Initializing WebSocket using useRef hook
   let socket = useRef(null);
@@ -76,20 +76,34 @@ export default function MainChatCard({ id }) {
 
   }, [socket.current, auth]);
 
-
+  const toggleMenu = () => {
+    setMenu(!menu);
+  };
+  useEffect(() => {
+    //scroll the chat area to the bottom
+    const msgBody = document.getElementById("msg-body");
+    msgBody.scrollTop = msgBody.scrollHeight;
+  }, [EachUsersMessages]);
   // JSX structure for rendering the main chat card
   return (
-    <div className='border border-gray-200 bg-white w-3/4 h-screen relative'>
+    <div  className={`border border-gray-200 bg-white w-full md:w-3/4 h-screen relative md:block ${menu ? "block" : "hidden"}`}>
       {Receiver != null ? (
         <>
           <div className="w-full flex items-start justify-start p-2 border border-gray-200 absolute top-0 bg-white z-1">
             <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 rounded-full" />
-            <div className="flex flex-col px-4 justify-center items-start text-gray-600">
+            <div className="flex flex-col px-4 justify-center items-start text-gray-600 !w-full min-w-[65%]">
               <h2 className="text-xl font-semibold">{SelectedName}</h2>
               <h3 className="text-base font-light">Last active at: 3rd Nov 2023, 7:08PM</h3>
             </div>
+            <div onClick={toggleMenu} className="flex md:hidden w-full justify-end items-center my-auto">
+              {menu ? (
+                <IoIosClose className='w-10 h-10 cursor-pointer' />
+              ) : (
+                <IoIosClose className='w-10 h-10 cursor-pointer' />
+              )}
+            </div>
           </div>
-          <div className="h-screen overflow-scroll py-[100px]">
+          <div id="msg-body" className="h-screen overflow-scroll py-[100px]">
             {EachUsersMessages?.map((ele) => {
               return (
                 <div>
@@ -136,7 +150,29 @@ export default function MainChatCard({ id }) {
           </div>
         </>
       ) : (
-        <div className='w-full h-full text-center items-center flex justify-center'>You Havent Selected Any One</div>
+        <div className='flex flex-col'>
+          <div className="w-full flex items-center justify-start p-2 border border-gray-200 absolute top-0 bg-white z-1 h-20">
+            <div className="flex flex-col px-4 justify-center items-start text-gray-600 !w-full min-w-[75%]">
+              <h2 className="text-xl font-semibold">You Havent Selected Any One</h2>
+            </div>
+            <div onClick={toggleMenu} className="flex md:hidden w-full justify-end items-center my-auto">
+              {menu ? (
+                <svg className="" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+                  <line x1="0" y1="0" x2="50" y2="50" stroke-width="5" stroke="black" />
+                  <line x1="0" y1="50" x2="50" y2="0" stroke-width="5" stroke="black" />
+                </svg>
+              ) : (
+                <svg className="" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+                  <rect x="0" y="7.5" width="50" height="5" />
+                  <rect x="0" y="22.5" width="50" height="5" />
+                  <rect x="0" y="37.5" width="50" height="5" />
+                </svg>
+              )}
+            </div>
+          </div>
+          <div className="w-full text-center items-center flex justify-center">
+          </div>
+        </div>
       )}
 
 
