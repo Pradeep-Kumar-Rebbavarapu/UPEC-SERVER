@@ -176,7 +176,8 @@ class __get__group__chat__users__(APIView):
             JsonResponse: The JSON response containing the group chat users.
         """
         user = User.objects.get(id=pk)
-        team = Team.objects.filter(members=pk)
+        talent = Talent.objects.get(user=user)
+        team = Team.objects.filter(members=talent)
         serializer = TeamSerializer(team, many=True)
         project_groups = []
         for i in serializer.data:
@@ -210,7 +211,8 @@ class __get__project__related__groups__(APIView):
             JsonResponse: The JSON response containing the project-related groups.
         """
         user = User.objects.get(id=pk)
-        team = Team.objects.filter(members=pk)
+        talent = Talent.objects.get(user=user)
+        team = Team.objects.filter(members=talent)
         serializer = TeamSerializer(team, many=True)
         project_groups = []
         for i in serializer.data:
