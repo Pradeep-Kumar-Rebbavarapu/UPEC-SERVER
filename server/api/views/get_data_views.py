@@ -126,7 +126,7 @@ class __get__each__project__(APIView):
             project_data["prd"] = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=project_data["prd"])).data
 
         # Get the project management information
-        if project_data["project_management"] is not None or project_data['project_management']=="":
+        if project_data["project_management"] is not None or project_data['project_management']!="":
             project_data["project_management"] = json.loads(project_data["project_management"])
 
         # Get the project team details
